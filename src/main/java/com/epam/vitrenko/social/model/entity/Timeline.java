@@ -19,10 +19,13 @@ public class Timeline {
     public static final int NOTE_TEXT_MAX_LENGTH = 128;
 
     @Column(nullable = false, length = NOTE_TEXT_MAX_LENGTH)
-    String noteText;
+    private String noteText;
 
     @ManyToOne(optional = false)
-    Profile profile;
+    private Profile profile;
+
+    @ManyToOne(optional = false)
+    private Profile author;
 
     @Id
     private long id;
