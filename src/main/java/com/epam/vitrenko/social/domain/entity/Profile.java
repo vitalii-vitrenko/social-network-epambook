@@ -25,6 +25,7 @@ public class Profile {
     public static final int NAME_MAX_LENGTH = 52;
 
     @Id
+    @GeneratedValue
     private Long id;
 
     @Column(unique = true, nullable = false, length = USERNAME_MAX_LENGTH)
