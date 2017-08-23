@@ -1,10 +1,9 @@
 package com.epam.vitrenko.social;
 
-import com.epam.vitrenko.social.model.entity.Profile;
+import com.epam.vitrenko.social.domain.entity.Profile;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 @SpringBootApplication
 @EntityScan(basePackageClasses = Profile.class)
