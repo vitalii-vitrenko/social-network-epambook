@@ -2,7 +2,6 @@ package com.epam.vitrenko.social.domain.dto;
 
 import com.epam.vitrenko.social.domain.entity.Profile;
 import com.epam.vitrenko.social.domain.entity.Timeline;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,22 +19,12 @@ public class TimelineMapperTest {
     @Autowired
     private TimelineMapper timelineMapper;
 
-    @Autowired
-    private ProfileMapper profileMapper;
-
     private Profile author = Profile.builder()
             .id(1L)
             .username("authorUsername")
             .name("authorNome")
             .dateOfBirth(LocalDate.now())
             .build();
-
-    private ProfileDto authorDto;
-
-    @Before
-    public void setUp() {
-        authorDto = profileMapper.mapToDto(author);
-    }
 
     @Test
     public void shouldMapTimelineToDto() {
@@ -49,19 +38,20 @@ public class TimelineMapperTest {
 
         assertThat(timelineDto).hasNoNullFieldsOrProperties();
         assertThat(timelineDto.getNoteText()).as("noteText").isEqualTo(timeline.getNoteText());
-        assertThat(timelineDto.getAuthor()).as("author").isEqualTo(authorDto);
+        assertThat(timelineDto.getAuthor()).as("author").isEqualTo(timeline.getAuthor().getUsername());
     }
 
     @Test
     public void shouldMapDtoToTimeline() {
         TimelineDto timelineDto = TimelineDto.builder()
-                .author(authorDto)
+                .author(author.getUsername())
                 .noteText("someText")
                 .build();
 
         Timeline timeline = timelineMapper.mapFromDto(timelineDto);
 
-        assertThat(timeline.getAuthor()).isNotNull();
+        assertThat(timeline.getAuthor()).isNull();
+        assertThat(timeline.getOwner()).isNull();
         assertThat(timeline.getNoteText()).isEqualTo(timelineDto.getNoteText());
     }
 

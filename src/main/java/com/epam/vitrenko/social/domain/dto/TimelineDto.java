@@ -17,10 +17,11 @@ public class TimelineDto {
 
     public static final int NOTE_TEXT_MIN_LENGTH = 1;
 
-    @NotNull
-    @Size(min = NOTE_TEXT_MIN_LENGTH, max = Timeline.NOTE_TEXT_MAX_LENGTH)
-    private String noteText;
+    public static final int NOTE_TEXT_MAX_LENGTH = Timeline.NOTE_TEXT_MAX_LENGTH;
 
     @NotNull
-    private ProfileDto author;
+    @Size(min = NOTE_TEXT_MIN_LENGTH, max = NOTE_TEXT_MAX_LENGTH)
+    private String noteText;
+
+    private String author;
 }

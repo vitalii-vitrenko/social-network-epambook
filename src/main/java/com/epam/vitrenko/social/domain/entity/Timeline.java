@@ -22,10 +22,10 @@ public class Timeline {
     @Column(nullable = false, length = NOTE_TEXT_MAX_LENGTH)
     private String noteText;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Profile owner;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Profile author;
 
 }

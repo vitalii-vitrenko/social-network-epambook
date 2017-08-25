@@ -3,9 +3,7 @@ package com.epam.vitrenko.social.domain.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,6 +22,16 @@ public class Profile {
 
     public static final int NAME_MAX_LENGTH = 52;
 
+    @OneToMany(mappedBy = "owner", cascade = ALL, orphanRemoval = true)
+    private final Set<Timeline> timelines = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "friends", joinColumns = {
+            @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "friend_id", referencedColumnName = "id", nullable = false)})
+    private final Set<Profile> friends = new HashSet<>();
+
     @Id
     @GeneratedValue
     private Long id;
@@ -37,13 +45,9 @@ public class Profile {
     @Column(nullable = false)
     private LocalDate dateOfBirth;
 
-    @OneToMany(mappedBy = "owner", cascade = ALL, orphanRemoval = true)
-    private final Set<Timeline> timelines = new HashSet<>();
-
-    @ManyToMany
-    @JoinTable(name = "friends", joinColumns = {
-            @JoinColumn(name = "friend1", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
-            @JoinColumn(name = "friend2", referencedColumnName = "id", nullable = false)})
-    private final Set<Profile> friends = new HashSet<>();
+    public void addFriend(Profile friend) {
+        getFriends().add(friend);
+        friend.getFriends().add(this);
+    }
 
 }

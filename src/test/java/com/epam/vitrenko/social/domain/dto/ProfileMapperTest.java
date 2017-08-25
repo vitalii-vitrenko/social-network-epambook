@@ -1,6 +1,5 @@
 package com.epam.vitrenko.social.domain.dto;
 
-
 import com.epam.vitrenko.social.domain.entity.Profile;
 import org.junit.Test;
 import org.junit.runner.RunWith;

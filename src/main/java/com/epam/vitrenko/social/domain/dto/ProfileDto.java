@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -20,18 +19,24 @@ public class ProfileDto {
 
     public static final int USERNAME_MIN_LENGTH = 3;
 
+    public static final int USERNAME_MAX_LENGTH = Profile.USERNAME_MAX_LENGTH;
+
     public static final int NAME_MIN_LENGTH = 3;
 
+    public static final int NAME_MAX_LENGTH = Profile.NAME_MAX_LENGTH;
+
+    public static final String JSON_DATE_PATTERN = "dd-MM-yyyy";
+
     @NotNull
-    @Size(min = USERNAME_MIN_LENGTH, max = Profile.USERNAME_MAX_LENGTH)
+    @Size(min = USERNAME_MIN_LENGTH, max = USERNAME_MAX_LENGTH)
     private String username;
 
     @NotNull
-    @Size(min = NAME_MIN_LENGTH, max = Profile.NAME_MAX_LENGTH)
+    @Size(min = NAME_MIN_LENGTH, max = NAME_MAX_LENGTH)
     private String name;
 
     @NotNull
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = JSON_DATE_PATTERN)
     private LocalDate dateOfBirth;
 
 }

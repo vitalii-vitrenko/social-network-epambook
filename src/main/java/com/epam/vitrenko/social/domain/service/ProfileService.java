@@ -1,14 +1,19 @@
 package com.epam.vitrenko.social.domain.service;
 
 import com.epam.vitrenko.social.domain.dto.ProfileDto;
-import com.epam.vitrenko.social.domain.entity.Profile;
+
+import java.util.Collection;
+import java.util.Optional;
 
 public interface ProfileService {
 
-    ProfileDto findByUsername(String username);
+    Optional<ProfileDto> findByUsername(String username);
 
     void createProfile(ProfileDto profile);
 
-    boolean usernameExists(String username);
+    void makeFriends(String username, String friendUsername);
 
+    Collection<ProfileDto> findFriends(String username);
+
+    boolean isFriends(String username, String friendUsername);
 }
